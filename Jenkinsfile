@@ -2,14 +2,14 @@ pipeline {
     agent any
 
     tools {
-        maven 'MAVEN_HOME' // Asegúrate de tener esta herramienta configurada en Jenkins
+        maven 'MAVEN_HOME'
     }
 
     stages {
         stage('Clone') {
             steps {
                 cleanWs()
-                git branch: 'pruebas', url: 'https://github.com/Romulozz/lp.git'
+                git branch: 'main', url: 'https://github.com/DiegoAlonso26/IntegracionyDespliegueContinuo.git'
             }
         }
 
