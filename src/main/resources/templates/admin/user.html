@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Sharp" rel="stylesheet">
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <title>Admin - home</title>
+</head>
+
+<body >
+
+<div class="container">
+    <!-- Sidebar Section -->
+    <aside>
+        <div class="toggle">
+            <div class="logo">
+                <h2>A Ram <span class="danger">Sam Sam</span></h2>
+            </div>
+            <div class="close" id="close-btn">
+                    <span class="material-icons-sharp">
+                        close
+                    </span>
+            </div>
+        </div>
+
+        <div class="sidebar">
+            <a th:href="@{/admin}">
+                    <span class="material-icons-sharp">
+                        home
+                    </span>
+                <h3>Inicio</h3>
+            </a>
+            </a>
+            <a href="">
+                    <span class="material-icons-sharp">
+                        person_outline
+                    </span>
+                <h3>Usuarios</h3>
+            </a>
+            <a href="/admin/pedidos">
+                    <span class="material-icons-sharp">
+                        shop
+                    </span>
+                <h3>Pedidos</h3>
+            </a>
+            <a th:href="@{/register-admin}">
+                    <span class="material-icons-sharp">
+                        add
+                    </span>
+                <h3>Nuevo Usuario</h3>
+            </a>
+            <a th:href="@{/logout}">
+                    <span class="material-icons-sharp">
+                        logout
+                    </span>
+                <h3 onclick="showLogoutAlert(event)" th:href="@{/logout}">Cerrrar Sesion</h3>
+            </a>
+        </div>
+    </aside>
+    <!-- End of Sidebar Section -->
+
+    <!-- Main Content -->
+    <main>
+        <!-- Analyses -->
+        <div class="analyse">
+            <div class="sales">
+                <div class="status">
+                    <div class="info">
+                        <h1 th:text="${totalUsuarios}"></h1>
+                        <h3>Usuarios</h3>
+                    </div>
+                    <div class="progresss">
+                        <img th:src="@{/images/icons/clientes.png}" alt="clientes icono" style="max-width: 80px; height: auto">
+                    </div>
+                </div>
+            </div>
+            <div class="visits">
+                <div class="status">
+                    <div class="info">
+                        <h1 th:text="${totalOrder}"></h1>
+                        <h3>Pedidos</h3>
+                    </div>
+                    <div class="progresss">
+                        <img th:src="@{/images/icons/pedido.png}" alt="clientes icono" style="max-width: 80px; height: auto">
+                    </div>
+                </div>
+            </div>
+            <div class="searches">
+                <div class="status">
+                    <div class="info">
+                        <h1 th:text="${totalProducts}"></h1>
+                        <h3>Productos</h3>
+                    </div>
+                    <div class="progresss">
+                        <img th:src="@{/images/icons/productos.png}" alt="clientes icono" style="max-width: 80px; height: auto">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- End of Analyses -->
+
+        <!-- Recent Orders Table -->
+        <div class="recent-orders">
+            <h2>Usuarios</h2>
+            <table>
+                <thead>
+                <tr>
+                    <th>Nombre</th>
+                    <th>Apellido</th>
+                    <th>Nombre de Usuario</th>
+                    <th>Email</th>
+                    <th>Telefono</th>
+                    <th>Direccion</th>
+                    <th>Tipo de Usuario</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="usuarios: ${users}">
+                    <td th:text="${usuarios.firstname}"></td>
+                    <td th:text="${usuarios.lastname}"></td>
+                    <td th:text="${usuarios.username}"></td>
+                    <td th:text="${usuarios.email}"></td>
+                    <td th:text="${usuarios.cellphone}"></td>
+                    <td th:text="${usuarios.address}"></td>
+                    <td th:text="${usuarios.userType}"></td>
+                </tr>
+                </tbody>
+                </tbody>
+            </table>
+        </div>
+        <!-- End of Recent Orders -->
+
+
+    </main>
+    <!-- End of Main Content -->
+
+    <!-- Right Section -->
+    <div class="right-section">
+        <div class="nav">
+            <button id="menu-btn">
+                    <span class="material-icons-sharp">
+                        menu
+                    </span>
+            </button>
+            <div class="dark-mode">
+                    <span class="material-icons-sharp">
+                        light_mode
+                    </span>
+                <span class="material-icons-sharp active">
+                        dark_mode
+                    </span>
+            </div>
+
+            <div class="profile">
+                <div class="info">
+                    <small class="text-muted">Admin</small>
+                </div>
+            </div>
+        </div>
+        <!-- End of Nav -->
+    </div>
+
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script th:src="@{/js/app.js}"></script>
+</body>
+
+</html>

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<!--
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this template
+-->
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Orden Confirmada</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+<p>¡Gracias por tu orden!</p>
+<p>Detalles de la orden:</p>
+<p>Nombre: [[${user.firstname}]] [[${user.lastname}]]</p>
+<p>Correo: [[${user.email}]]</p>
+<p>Dirección: [[${user.address}]]</p>
+
+<p>Productos:</p>
+<table border="1">
+    <thead>
+    <tr>
+        <th>Producto</th>
+        <th>Precio</th>
+        <th>Cantidad</th>
+        <th>Total</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="item : ${items}">
+        <td th:text="${item.nameProduct}"></td>
+        <td th:text="${item.price}"></td>
+        <td th:text="${item.quantity}"></td>
+        <td th:text="${item.totalPriceItem}"></td>
+    </tr>
+    </tbody>
+</table>
+
+<p>Total de la orden: [[${total}]]</p>
+</body>
+</html>

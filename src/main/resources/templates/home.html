@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:insert="~{user/template_user::head_user}">
+</head>
+<body>
+
+<div th:insert="~{user/template_user::header_user}" th:if="${id==null}"></div>
+<div th:insert="~{user/template_user::user_logged}" th:unless="${id==null}"></div>
+
+<div class="container">
+    <h1 class="text-center" style="font-size: 60px; font-weight: bold; padding-top: 60px">Los mejores productos</h1>
+
+    <div class="circle-container">
+        <div>
+            <div class="circle">
+                <img th:src="@{/images/icons/icon_1.png}" alt="icono 1">
+            </div>
+            <h2 class="text-center">Compras seguras</h2>
+        </div>
+        <div>
+            <div class="circle">
+                <img th:src="@{/images/icons/icon_2.png}" alt="icono 2">
+            </div>
+            <h2 class="text-center">Envío gratis</h2>
+        </div>
+        <div>
+            <div class="circle">
+                <img th:src="@{/images/icons/icon_3.png}" alt="icono 3">
+            </div>
+            <h2 class="text-center">Variedad de pagos</h2>
+        </div>
+        <div>
+            <div class="circle">
+                <img th:src="@{/images/icons/icon_4.png}" alt="icono 4">
+            </div>
+            <h2 class="text-center">Devolución en 30 días</h2>
+        </div>
+    </div>
+
+    <br>
+</div>
+
+<div style="background-color: #D9D9D9; width: 100%">
+    <div class="container" style="padding: 40px 0;">
+        <div class="row text-center">
+            <div class="col-lg-3 col-md-6 mb-4" th:each="product: ${products}">
+                <div class="card h-100">
+                    <img style="max-width: 100%; max-height: 200px;" th:src="@{/images/{img}(img=${product.image})}" alt="Imagen producto" />
+                    <div class="card-body">
+                        <h5 class="card-title" th:text="${product.name}" style="font-size: 1.7rem;">Nombre del producto</h5>
+                        <p class="card-text" th:text="${product.description}" style="font-size: 1.2rem;">Descripción del producto</p>
+                        <div class="dropdown-divider" style="border-top: 1px solid #000; margin-bottom: 14px;"></div>
+                        <p class="card-text" th:text="${'S/.' + product.price}" style="font-size: 1.3rem;">Precio</p>
+                    </div>
+                    <div class="card-footer">
+                        <a th:href="@{/home/product-detail/{id}(id=${product.id})}" class="btn" style="background-color: #5D3D27; color: white; font-size: 1.2rem; padding: 10px 20px; text-decoration: none;">Ver Producto</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script th:src="@{/js/login.js}"></script>
+</body>
+
+<div class="footer" th:insert="~{user/template_user::footer_user}"></div>
+
+<style>
+    body {
+        position: relative;
+        font-family: 'Karantina', sans-serif;
+    }
+
+    .footer {
+        bottom: 0px;
+        width: 100%;
+    }
+
+    .circle-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 30px;
+    }
+
+    .circle {
+        width: 100px;
+        height: 100px;
+        background-color: #8B562A;
+        border-radius: 50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        color: white;
+        margin: 5px 50px;
+    }
+
+    .circle img {
+        max-width: 70%;
+        max-height: 80%;
+    }
+
+    .circle h2 {
+        text-align: center;
+        margin: 0;
+        padding: 0;
+        font-size: 16px;
+    }
+
+    .navbar-icon {
+        transition: color 0.3s, border 0.3s, transform 0.3s;
+    }
+
+    .navbar-icon:hover {
+        color: #ffc107;
+        transform: scale(1.2);
+    }
+
+    .navbar-icon:active {
+        transform: scale(1.1);
+    }
+</style>
+</html>

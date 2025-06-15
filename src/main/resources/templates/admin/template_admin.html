@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<!--
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this template
+-->
+<html xmlns:th="http://www.thymeleaf.org">
+    <head th:fragment ="head_admin">
+        <title>Ecommerce-admin</title>
+        <link rel="icon" href="../../static/images/icono.png" type="image/jpeg">
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+        <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet">
+    </head>
+    <body>
+        
+        <div th:fragment ="header_admin">
+            
+         <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+                <div class="container">
+                    <a class="navbar-brand text-white" href="/home" style="font-size: 25px;">A Ram Sam Sam</a>
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarNav">
+                        <ul class="navbar-nav" style="margin-left: auto;">
+                       <!--     <li class="nav-item">
+                                <a class="nav-link text-white" href="#"><i class="fas fa-search navbar-icon" style="font-size: 25px; margin-right: 15px; cursor: pointer;" ></i></a>
+                            </li> -->
+                            <li class="nav-item">
+                                <a class="nav-link text-white" href="../login-ad-us/login.html"><i class="fas fa-user navbar-icon" style="font-size: 25px; margin-right: 15px; cursor: pointer;"></i></a>
+                            </li>
+                        <!--    <li class="nav-item">
+                                <a class="nav-link text-white" href="#"><i class="fas fa-shopping-cart navbar-icon" style="font-size: 25px; cursor: pointer;"></i></a>
+                            </li> -->
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+            
+
+        </div>
+        
+        
+    <div th:fragment ="footer_admin">
+        <footer class="footer py-3 bg-dark">
+            <div class="container">
+                <p class="m-0 text-center text-white" style="font-size: 20px;"> A RAM SAM SAM COPORATION - TODOS LOS DERECHOS RESERVADOS</p>
+                <script th:src="@{/js/bootstrap.bundle.min.js}"></script>
+            </div>
+        </footer>
+    </div>
+        
+    </body>
+    
+</html>

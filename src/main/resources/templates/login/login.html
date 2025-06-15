@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>Ecommerce-login</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="icon" href="favicon.ico" type="image/x-icon"> <!-- Agrega tu favicon.ico aquí -->
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@10"></link>
+
+    </head>
+
+    <body style="background-color: #8B562A;">
+
+        <div th:fragment="header">
+        </div>
+
+        <div class="container">
+            <i class="fa fa-user fa-3x" style="color: #8B562A;"></i> <!-- Icono de usuario -->
+            <h1>Login</h1>
+
+            <form  th:action="@{/login}" method="post">
+                <div class="form-group">
+                    <label for="username"> Email:  </label>
+                    <input type="email" class="form-control" id="username" name="username" placeholder="Ingrese su email" required autocomplete="off">
+
+                </div>
+
+                <div class="form-group">
+                    <label for="password" class="password-label">
+                        Password
+                    </label>
+                    <div class="input-group">
+                        <input type="password" class="form-control"  id="password" name="password" placeholder="Ingrese su contraseña" required autocomplete="off">
+                        <div class="input-group-append">
+                            <span class="input-group-text">
+                                <i id="password-toggle" class="fa fa-eye" style="cursor: pointer;"></i>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class=" ingresar form-group">
+                    <div class="col-sm-2">
+                        <button type="submit" class="btn btn-dark"> <span class="glyphicon glyphicon-ok"></span> Ingresar</button>
+                    </div>
+                </div>
+            </form>
+            <span>¿No tienes cuenta? </span><a th:href="@{/register}" class="card-link"><b>Registrarse</b></a>
+
+            <div class="social-icons">
+                <a href="https://www.facebook.com/profile.php?id=100082953561650&mibextid=LQQJ4d" target="_blank" class="social-icon"><i class="fa fa-facebook"></i></a>
+                <a href="https://www.instagram.com/omia_coffee/" target="_blank" class="social-icon"><i class="fa fa-instagram"></i></a>
+                <a href="#" class="social-icon"><i class="fa fa-twitter"></i></a>
+            </div>
+
+        </div>
+
+    </body>
+
+    <style>
+        body {
+            background-color: #D9D9D9;
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .container {
+            background-color: rgba(255,255,255,0.7);
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+            padding: 30px;
+            width: 400px;
+            text-align: center;
+        }
+
+        h1 {
+            margin-bottom: 20px;
+        }
+
+        form {
+            text-align: left;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            font-weight: bold;
+        }
+
+        .form-control {
+            border: 2px none;
+            background-color: white;
+            border-radius: 4px;
+            width: 94%;
+            padding: 10px;
+        }
+
+        .form-control:focus {
+            border-color: #007bff;
+            box-shadow: none;
+        }
+
+        .btn-primary {
+            background-color: #007bff;
+            border: none;
+            border-radius: 4px;
+            padding: 10px;
+            cursor: pointer;
+            color: #fff;
+            width: 100%;
+            font-size: 18px;
+        }
+
+        .btn-primary:hover {
+            background-color: #0056b3;
+        }
+
+        .btn-dark{
+            background-color: #8B562A;
+            padding: 10px;
+            border-radius: 8px;
+            border: none;
+            color: white;
+            width: 100%;
+        }
+
+        .options {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .options label, .options a {
+            font-size: 14px;
+            color: #555;
+        }
+
+        .show-password {
+            cursor: pointer;
+            padding: 10px;
+        }
+
+        .show-password i {
+            font-size: 18px;
+        }
+
+        .card-link{
+            color: black;
+        }
+
+        .social-icons {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-top: 10px;
+        }
+
+        .social-icons a {
+            display: inline-block;
+            text-align: center;
+            width: 40px;
+            height: 40px;
+            background-color: #8B562A;
+            border-radius: 50%;
+            margin: 0 10px;
+            color: #fff;
+            line-height: 40px;
+            font-size: 20px;
+            text-decoration: none;
+        }
+
+        .register-link {
+            font-size: 14px;
+            color: #007bff;
+            text-decoration: none;
+        }
+
+        .register-link:hover {
+            text-decoration: underline;
+        }
+
+
+        .input-group {
+            position: relative;
+        }
+
+        .input-group-append {
+            position: absolute;
+            top: 0;
+            right: 10px; /* Ajusta según sea necesario */
+            bottom: 0;
+            display: flex;
+            align-items: center;
+        }
+
+
+        .social-icon {
+            background-color: #8B562A;
+            transition: color 0.3s, border 0.3s, transform 0.3s; /* Added transform to the transition */
+
+            &:hover {
+                border-radius: 50%;
+                transform: scale(1.2); /* Increase size on hover */
+            }
+
+            &:active{
+                transform: scale(1.1); /* Slightly reduce size when clicked */
+            }
+
+        }
+
+    </style>
+
+
+    <script>
+        const passwordField = document.getElementById('password');
+        const passwordToggle = document.getElementById('password-toggle');
+
+        passwordToggle.addEventListener('click', function () {
+            if (passwordField.type === 'password') {
+                passwordField.type = 'text';
+                passwordToggle.className = 'fa fa-eye-slash';
+            } else {
+                passwordField.type = 'password';
+                passwordToggle.className = 'fa fa-eye';
+            }
+        });
+
+        const rememberMeCheckbox = document.getElementById('remember-me');
+        const emailField = document.getElementById('email');
+
+        rememberMeCheckbox.addEventListener('change', function () {
+            if (this.checked && emailField.value.trim() !== '' && passwordField.value.trim() !== '') {
+                // Guardar datos en localStorage
+                localStorage.setItem('savedEmail', emailField.value.trim());
+                localStorage.setItem('savedPassword', passwordField.value.trim());
+                // Mostrar SweetAlert2 sin afectar el diseño
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Contraseña guardada',
+                    showConfirmButton: false,
+                    timer: 1500  // Auto-cerrar después de 1.5 segundos (ajusta según tus necesidades)
+                });
+            } else {
+                // Puedes agregar aquí un mensaje o lógica adicional si no se cumple la condición
+            }
+        });
+
+        // Restaurar los datos del localStorage al cargar la página
+        window.addEventListener('load', function () {
+            const savedEmail = localStorage.getItem('savedEmail');
+            const savedPassword = localStorage.getItem('savedPassword');
+            if (savedEmail) {
+                emailField.value = savedEmail;
+            }
+
+            if (savedPassword) {
+                passwordField.value = savedPassword;
+            }
+        });
+
+    </script>
+
+    <script th:src="@{/js/bootstrap.bundle.min.js}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+
+</html>

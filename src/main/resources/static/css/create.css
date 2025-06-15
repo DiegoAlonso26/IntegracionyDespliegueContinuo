@@ -1,0 +1,116 @@
+/* Estilos generales */
+
+:root {
+    --color-primary: #6C9BCF;
+    --color-danger: #FF0060;
+    --color-success: #1B9C85;
+    --color-warning: #F7D060;
+    --color-white: #fff;
+    --color-info-dark: #7d8da1;
+    --color-dark: #363949;
+    --color-light: rgba(132, 139, 200, 0.18);
+    --color-dark-variant: #677483;
+    --color-background: #f6f6f9;
+
+    --card-border-radius: 2rem;
+    --border-radius-1: 0.4rem;
+    --border-radius-2: 1.2rem;
+
+    --card-padding: 1.8rem;
+    --padding-1: 1.2rem;
+
+    --box-shadow: 0 2rem 3rem var(--color-light);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    outline: 0;
+    appearance: 0;
+    border: 0;
+    text-decoration: none;
+    box-sizing: border-box;
+}
+
+html {
+    font-size: 14px;
+}
+
+body {
+    width: 100vw;
+    height: 100vh;
+    font-family: 'Poppins', sans-serif;
+    font-size: 0.88rem;
+    user-select: none;
+    overflow-x: hidden;
+    color: var(--color-dark);
+    background-color: var(--color-background);
+}
+
+/* Formulario */
+
+.container {
+    margin: 0 auto;
+    max-width: 600px;
+}
+
+form {
+    margin-top: 1.4rem;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+label {
+    font-size: 18px;
+    font-weight: bold;
+}
+
+button {
+    font-size: 18px;
+    padding: 10px 20px;
+    background-color: #48b494;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    margin-top: 4rem;
+}
+
+button:hover {
+    background-color: #333333;
+    color:  var(--color-white);
+}
+
+/* SweetAlert2 */
+
+.swal2-popup {
+    font-size: 18px;
+}
+
+
+
+#name.form-control {
+    width: 400px;
+    border-radius: 20px;
+    margin-left: 55px;
+}
+
+#description.form-control {
+    width: 400px;
+    border-radius: 20px;
+    margin-left: 20px;
+}
+
+#price.form-control {
+    width: 400px;
+    border-radius: 20px;
+    margin-left: 68px;
+}
+
+#img.form-control-file{
+    width: 350px;
+    margin-left: 60px;
+}

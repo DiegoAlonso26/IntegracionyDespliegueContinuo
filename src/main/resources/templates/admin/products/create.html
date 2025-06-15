@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+    <head>
+        <title>Ecommerce-create-product</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Sharp" rel="stylesheet">
+        <link rel="stylesheet" th:href="@{/css/create.css}">
+        <link rel="icon" href="../../../static/images/Icono de la pestaña.png" type="image/jpeg">
+
+    <pre>
+    
+
+    </pre>
+
+
+    <pre>
+    
+
+    </pre>
+
+    <style>
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        input,
+        textarea {
+            width: 100%;
+            padding: 15px;
+            font-size: 18px;
+            margin-bottom: 10px;
+        }
+
+        button {
+            font-size: 18px;
+            padding: 10px 20px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+        <main>
+            <div class="container">
+                <h1 class="display-3" style="font-family: 'Arial', sans-serif; font-size: 36px; font-weight: bold; text-transform: uppercase; color: #333; text-shadow: 2px 2px 4px #888; margin: 0;">Crear Producto:</h1>
+
+                <form class="form-horizontal" th:action="@{/admin/products/save-product}" method="post" enctype="multipart/form-data">
+
+
+                    <pre> 
+                    
+                    </pre>
+                    <div class="form-group">
+                        <label for="name">Nombre:</label>
+                        <input type="text" class="form-control" id="name" name="name" placeholder="Ingrese el nombre del producto" autocomplete="off" required>
+                    </div> 
+                    <pre>
+                        
+                    </pre>
+
+                    <div class="form-group">
+                        <label for="description">Descripción:</label>
+                        <input type="text" class="form-control" id="description" name="description" placeholder="Ingrese la descripción del producto" required autocomplete="off"></input>
+                    </div> 
+                    <pre>
+                        
+                    </pre>
+
+                    <div class="form-group">
+                        <label for="price">Precio:</label>
+                        <input type="number" class="form-control"  step="any" id="price" name="price" placeholder="Ingrese el precio del producto" autocomplete="off" required>
+                    </div>
+                    <pre>
+                        
+                    </pre>
+
+                    <div class="form-group">
+                        <label for="img">Imagen:</label>
+                        <input type="file" class="form-control-file" id="img" name="img">
+                    </div>
+
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-success" onclick="showSuccessAlert()">
+                            <span class="glyphicon glyphicon-saved"></span> Guardar
+                        </button>
+                        <button type="button" class="btn btn-danger" onclick="showCancelAlert()" style="margin-left: 10px;">Cancelar</button>
+                    </div>
+
+                </form>
+            </div>
+        </main>
+
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script th:inline="javascript">
+                            function showSuccessAlert() {
+                                Swal.fire({
+                                    icon: 'success',
+                                    title: '¡Producto creado con éxito!',
+                                    showConfirmButton: false,
+                                    timer: 7000, // Mostrar la alerta durante 3 segundos
+                                });
+                            }
+
+                            function showCancelAlert() {
+                                Swal.fire({
+                                    icon: 'info',
+                                    title: '¿Está seguro de que desea cancelar la operación?',
+                                    showConfirmButton: true,
+                                    showCancelButton: true,
+                                    confirmButtonText: 'Sí',
+                                    cancelButtonText: 'No'
+                                }).then((result) => {
+                                    if (result.isConfirmed) {
+                                        window.location.href = '/admin';
+                                    }
+                                });
+                            }
+    </script>
+</body>
+
+</html>

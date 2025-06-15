@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<!--
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this template
+-->
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:insert ="~{user/template_user::head_user}">
+</head>
+<body>
+
+<div th:insert ="~{user/template_user::header_user}"></div>
+<!-- Page Content -->
+<div class="container">
+
+    <!-- Blog Post -->
+    <div class="card mb-4">
+        <div class="card-body">
+            <div class="row">
+                <div class="col-lg-9">
+                    <div class="card-body">
+                        <h5 class="card-title">
+                            DATOS ORDEN
+                        </h5>
+                        <h6 th:text="'Nombre: '+ ${user.firstname} + ' '+ ${user.lastname}">Nombre: </h6>
+                        <h6  th:text="'Correo: '+ ${user.email}">Correo: </h6>
+                        <h6 th:text="'Dirección: '+ ${user.address}">Dirección</h6>
+
+                        <h5 class="card-title">
+                            PRODUCTOS
+                        </h5>
+                        <div class="alert alert-light" role="alert">
+                            <table class="table">
+                                <thead>
+                                <tr>
+                                    <th scope="col">Producto</th>
+                                    <th scope="col">Precio</th>
+                                    <th scope="col">Cantidad</th>
+                                    <th scope="col">Total</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr th:each="item:${cart} ">
+                                    <td th:text="${item.nameProduct}">Nombre</td>
+                                    <td th:text="${item.price}">Precio</td>
+                                    <td th:text="${item.quantity}">Cantidad</td>
+                                    <td th:text="${item.getTotalPriceItem()}">Total</td>
+
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                    </div>
+                </div>
+
+
+                <div class="col-lg-3">
+                    <h2 class="card-title">Resumen Orden</h2>
+
+                    <ul class="list-group">
+                        <li class="list-group-item"><h5 th:text="${total}"> Total:</h5></li>
+                        <a th:href="@{/user/order/create-order}" class="btn btn-dark">Generar</a>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- /.container -->
+
+
+</body>
+<div class="footer" th:insert ="~{user/template_user::footer_user}"></div>
+<style>
+
+
+    body{
+        position: relative;
+        font-family: 'Karantina', sans-serif;
+        text-transform: uppercase;
+    }
+    .footer{
+
+        bottom:0px;
+        width: 100%;
+    }
+    .circle-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+    }
+    .circle {
+        width: 100px;
+        height: 100px;
+        background-color: #8B562A;
+        border-radius: 50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        color: white;
+        margin: 5px 50px;
+    }
+    .circle img {
+        max-width: 70%;
+        max-height: 80%;
+
+    }
+    .circle h2 {
+        text-align: center;
+        margin: 0;
+        padding: 0;
+        font-size: 16px;
+    }
+
+
+    .navbar-icon {
+        transition: color 0.3s, border 0.3s, transform 0.3s; /* Added transform to the transition */
+    }
+
+    .navbar-icon:hover {
+        color: #ffc107; /* Change color on hover */
+        transform: scale(1.2); /* Increase size on hover */
+    }
+
+    .navbar-icon:active {
+        transform: scale(1.1); /* Slightly reduce size when clicked */
+    }
+
+</style>
+
+
+</html>
