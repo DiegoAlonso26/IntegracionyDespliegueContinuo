@@ -6,21 +6,11 @@ pipeline {
     }
 
     environment {
-        GIT_REPO = 'https://github.com/DiegoAlonso26/IntegracionyDespliegueContinuo.git'
         DOCKER_PROJECT_NAME = 'lp-app'
         APP_CONTAINER_NAME = 'lp-app'
     }
 
     stages {
-        stage('Clone') {
-            steps {
-                echo '🔄 Limpiando workspace y clonando el repositorio...'
-                cleanWs()
-                git branch: 'main', url: "${GIT_REPO}"
-                echo '✅ Repositorio clonado correctamente.'
-            }
-        }
-
         stage('Build') {
             steps {
                 echo '🔧 Compilando el proyecto Java...'
