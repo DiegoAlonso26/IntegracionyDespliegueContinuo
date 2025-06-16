@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     options {
-            skipDefaultCheckout()
+        skipDefaultCheckout()
     }
 
     tools {
@@ -15,6 +15,14 @@ pipeline {
     }
 
     stages {
+        stage('Clone') {
+            steps {
+                echo '📥 Clonando el repositorio...'
+                git branch: 'main', url: 'https://github.com/DiegoAlonso26/IntegracionyDespliegueContinuo.git'
+                echo '✅ Clonación completada.'
+            }
+        }
+
         stage('Build') {
             steps {
                 echo '🔧 Compilando el proyecto Java...'
@@ -59,7 +67,7 @@ pipeline {
                         sh "docker-compose -p ${DOCKER_PROJECT_NAME} down --remove-orphans"
                         echo '🧹 Contenedores anteriores eliminados.'
                     } catch (Exception e) {
-                        echo "⚠️ No se pudo eliminar el despliegue anterior (posiblemente no existía): ${e.getMessage()}"
+                        echo "⚠️ No se pudo eliminar el despliegue anterior: ${e.getMessage()}"
                     }
 
                     sh "docker-compose -p ${DOCKER_PROJECT_NAME} up -d --build"
