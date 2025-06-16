@@ -1,10 +1,6 @@
 pipeline {
     agent any
 
-    options {
-        skipDefaultCheckout()
-    }
-
     tools {
         maven 'MAVEN_HOME'
     }
@@ -15,11 +11,9 @@ pipeline {
     }
 
     stages {
-        stage('Clone') {
+        stage('Checkout') {
             steps {
-                echo '📥 Clonando el repositorio...'
-                git branch: 'main', url: 'https://github.com/DiegoAlonso26/IntegracionyDespliegueContinuo.git'
-                echo '✅ Clonación completada.'
+                checkout scm
             }
         }
 
