@@ -11,9 +11,11 @@ pipeline {
     }
 
     stages {
-        stage('Checkout') {
+        stage('Clone') {
             steps {
-                checkout scm
+                echo '📥 Clonando el repositorio...'
+                git branch: 'main', url: 'https://github.com/DiegoAlonso26/IntegracionyDespliegueContinuo.git'
+                echo '✅ Clonación completada.'
             }
         }
 
