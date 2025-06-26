@@ -1,27 +1,30 @@
-name: Docker Deploy Local (Self-Hosted)
+name: 🚀 Docker Deploy Local con Self-Hosted Runner
 
 on:
   push:
     branches:
-      - main  # Se activa solo cuando haces push a la rama main
+      - main  # Cambia si usas otra rama
 
 jobs:
   deploy:
-    runs-on: self-hosted  # Usa tu runner local (en tu PC)
+    runs-on: self-hosted  # Esto hace que el runner se ejecute en tu PC local
 
     steps:
     - name: 🧾 Paso 1 - Descargar código del repo
       uses: actions/checkout@v3
 
-    - name: 🧹 Paso 2 - Mostrar archivos descargados
+    - name: 📁 Paso 2 - Mostrar archivos descargados
       run: |
-        echo "Archivos descargados en el runner:"
+        echo "Contenido del directorio actual:"
         ls -la
 
-    - name: 🐳 Paso 3 - Apagar contenedores anteriores
+    - name: 🐳 Paso 3 - Apagar contenedores anteriores (modo seguro)
       run: |
-        echo "➤ Ejecutando docker compose down..."
-        docker compose down
+        echo "➤ Intentando apagar contenedores anteriores..."
+        timeout 20s docker compose down || echo "⚠️ No se apagó ningún contenedor o se forzó salida"
+
+    - name: ✅ Paso 3.5 - Confirmación de avance
+      run: echo "✔️ Paso 3 terminado, seguimos con el build"
 
     - name: 🧱 Paso 4 - Construir contenedor
       run: |
@@ -33,7 +36,12 @@ jobs:
         echo "➤ Ejecutando docker compose up..."
         docker compose up -d
 
-    - name: ✅ Paso 6 - Verificar contenedores activos
+    - name: 🐳 Paso 6 - Verificar contenedores activos
       run: |
         echo "➤ Contenedores en ejecución:"
         docker ps
+
+    - name: 📄 Paso 7 - Mostrar logs del contenedor (opcional)
+      run: |
+        echo "➤ Logs del contenedor (últimos 20 segundos):"
+        docker logs $(docker ps -q) --since 20s || echo "⚠️ No hay logs disponibles"
