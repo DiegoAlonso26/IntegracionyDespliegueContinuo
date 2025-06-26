@@ -1,19 +1,39 @@
-name: Docker Deploy Local
+name: Docker Deploy Local (Self-Hosted)
 
 on:
   push:
     branches:
-      - main
+      - main  # Se activa solo cuando haces push a la rama main
 
 jobs:
   deploy:
-    runs-on: self-hosted
+    runs-on: self-hosted  # Usa tu runner local (en tu PC)
 
     steps:
-    - name: Checkout código
+    - name: 🧾 Paso 1 - Descargar código del repo
       uses: actions/checkout@v3
 
-    - name: Desplegar contenedor con Docker
+    - name: 🧹 Paso 2 - Mostrar archivos descargados
       run: |
+        echo "Archivos descargados en el runner:"
+        ls -la
+
+    - name: 🐳 Paso 3 - Apagar contenedores anteriores
+      run: |
+        echo "➤ Ejecutando docker compose down..."
         docker compose down
-        docker compose up -d --build
+
+    - name: 🧱 Paso 4 - Construir contenedor
+      run: |
+        echo "➤ Ejecutando docker compose build..."
+        docker compose build
+
+    - name: 🚀 Paso 5 - Levantar contenedor
+      run: |
+        echo "➤ Ejecutando docker compose up..."
+        docker compose up -d
+
+    - name: ✅ Paso 6 - Verificar contenedores activos
+      run: |
+        echo "➤ Contenedores en ejecución:"
+        docker ps
