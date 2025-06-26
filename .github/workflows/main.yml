@@ -1,47 +1,67 @@
-name: 🚀 Docker Deploy Local con Self-Hosted Runner
+# 🚀 Pipeline de CI/CD detallado para despliegue local con Self-Hosted Runner y visibilidad total
+
+name: Deploy Locally with Self-Hosted Runner
 
 on:
   push:
-    branches:
-      - main  # Cambia si usas otra rama
+    branches: [ "main" ]  
+  workflow_dispatch:      
+
+# Variables de entorno para usar en Docker Compose y logs
+env:
+  DOCKER_PROJECT_NAME: 'lpapp'
+  APP_CONTAINER_NAME: 'lp-app'
+  DB_CONTAINER_NAME: 'lp-db'
+  DB_NAME: 'lp'
+  DB_USER: 'root'
+  DB_PASSWORD: 'root'
 
 jobs:
-  deploy:
-    runs-on: self-hosted  # Esto hace que el runner se ejecute en tu PC local
+  build-and-deploy:
+    name: Build and Deploy Locally
+    runs-on: self-hosted
 
     steps:
-    - name: 🧾 Paso 1 - Descargar código del repo
-      uses: actions/checkout@v3
+      - name: ✅ Paso 1 - Descargar el repositorio
+        uses: actions/checkout@v4
 
-    - name: 📁 Paso 2 - Mostrar archivos descargados
-      run: |
-        echo "Contenido del directorio actual:"
-        ls -la
+      - name: 📝 Paso 2 - Ver archivos recibidos
+        run: |
+          echo "ℹ️ Archivos en el runner:"
+          ls -la
 
-    - name: 🐳 Paso 3 - Apagar contenedores anteriores (modo seguro)
-      run: |
-        echo "➤ Intentando apagar contenedores anteriores..."
-        timeout 20s docker compose down || echo "⚠️ No se apagó ningún contenedor o se forzó salida"
+      - name: ☕ Paso 3 - Instalar Java y preparar Maven
+        uses: actions/setup-java@v4
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+          cache: maven
 
-    - name: ✅ Paso 3.5 - Confirmación de avance
-      run: echo "✔️ Paso 3 terminado, seguimos con el build"
+      - name: 📅 Paso 4 - Compilar proyecto con Maven
+        run: |
+          echo "🎧 Compilando proyecto con Maven..."
+          mvn clean package -DskipTests
 
-    - name: 🧱 Paso 4 - Construir contenedor
-      run: |
-        echo "➤ Ejecutando docker compose build..."
-        docker compose build
+      - name: 🚜 Paso 5 - Desplegar con Docker Compose
+        run: |
+          echo "✅ Iniciando despliegue en el runner local..."
+          
+          echo "🚽 Apagando contenedores anteriores (si existen)..."
+          docker compose down -v --remove-orphans || echo "⚠️ Nada que apagar."
 
-    - name: 🚀 Paso 5 - Levantar contenedor
-      run: |
-        echo "➤ Ejecutando docker compose up..."
-        docker compose up -d
+          echo "🏋️ Verificando estado actual de contenedores..."
+          docker ps -a
 
-    - name: 🐳 Paso 6 - Verificar contenedores activos
-      run: |
-        echo "➤ Contenedores en ejecución:"
-        docker ps
+          echo "🛠️ Construyendo imagen y levantando contenedores..."
+          docker compose up -d --build
 
-    - name: 📄 Paso 7 - Mostrar logs del contenedor (opcional)
-      run: |
-        echo "➤ Logs del contenedor (últimos 20 segundos):"
-        docker logs $(docker ps -q) --since 20s || echo "⚠️ No hay logs disponibles"
+          echo "⏳ Esperando a que se levanten los servicios..."
+          sleep 15
+
+          echo "🔍 Contenedores activos:"
+          docker ps
+
+          echo "📄 Logs recientes de la app:"
+          docker logs --tail=50 ${{ env.APP_CONTAINER_NAME }} || echo "⚠️ No se encontraron logs."
+
+          echo "🎉 Despliegue completado correctamente."
