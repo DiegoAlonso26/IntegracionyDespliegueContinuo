@@ -1,12 +1,10 @@
-
 name: Deploy Locally with Self-Hosted Runner
 
 on:
   push:
-    branches: [ "main" ]  
-  workflow_dispatch:       
+    branches: [ "main" ]
+  workflow_dispatch:
 
-# Variables de entorno para usar en Docker Compose y logs
 env:
   DOCKER_PROJECT_NAME: 'lpapp'
   APP_CONTAINER_NAME: 'lp-app'
@@ -21,46 +19,27 @@ jobs:
     runs-on: self-hosted
 
     steps:
-      - name: ✅ Paso 1 - Descargar el repositorio
+      - name: ✅ Paso 1 - Descargar repositorio
         uses: actions/checkout@v4
 
-      - name: 📝 Paso 2 - Ver archivos recibidos
-        run: |
-          echo "ℹ️ Archivos en el runner:"
-          ls -la || echo "⚠️ Error al listar archivos."
-
-      - name: ☕ Paso 3 - Instalar Java y preparar Maven
+      - name: ☕ Paso 2 - Configurar Java y Maven
         uses: actions/setup-java@v4
         with:
           java-version: '17'
           distribution: 'temurin'
           cache: maven
 
-      - name: 📅 Paso 4 - Compilar proyecto con Maven
+      - name: ⚙️ Paso 3 - Compilar con Maven
         run: |
-          echo "🎧 Compilando proyecto con Maven..."
-          mvn clean package -DskipTests || echo "❌ Error al compilar con Maven. Verifica el pom.xml o dependencias."
+          echo "🔨 Compilando el proyecto con Maven..."
+          mvn clean package -DskipTests
 
-      - name: 🚜 Paso 5 - Desplegar con Docker Compose
+      - name: 🐳 Paso 4 - Desplegar con Docker Compose
         run: |
-          echo "✅ Iniciando despliegue en el runner local..."
+          echo "🧹 Apagando contenedores anteriores (si existen)..."
+          docker compose down -v --remove-orphans || echo "⚠️ No había contenedores activos"
 
-          echo "🚽 Apagando contenedores anteriores (si existen)..."
-          timeout 20s docker compose down -v --remove-orphans || echo "⚠️ No se pudo apagar o tomó mucho tiempo."
+          echo "🚀 Levantando aplicación con Docker Compose..."
+          docker compose up -d --build
 
-          echo "🗰️ Verificando contenedores actuales:"
-          docker ps -a || echo "⚠️ No se pudo listar contenedores."
-
-          echo "🛠️ Levantando contenedores con build..."
-          docker compose up -d --build || echo "❌ Falló el docker compose up. Verifica el Dockerfile o puertos."
-
-          echo "⏳ Esperando 15 segundos..."
-          sleep 15
-
-          echo "🔍 Contenedores activos en este momento:"
-          docker ps || echo "⚠️ No se pudo obtener contenedores activos."
-
-          echo "📄 Últimos logs de la app (${{ env.APP_CONTAINER_NAME }}):"
-          docker logs --tail=50 ${{ env.APP_CONTAINER_NAME }} || echo "⚠️ No se pudieron obtener logs del contenedor."
-
-          echo "🎉 Despliegue completado (con o sin warnings)"
+          echo "✅ App levantada exitosamente."
